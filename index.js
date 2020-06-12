@@ -17,8 +17,7 @@ app.use(bodyparser.json())
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-app.get('/', function (req, res) {
-
+app.get('/prices', function (req, res) {
 
 	//list single price using id
 	//  stripe.prices.retrieve(
@@ -33,10 +32,16 @@ app.get('/', function (req, res) {
 	stripe.prices.list(
 		{ limit: 3 },
 		function (err, prices) {
-			// asynchronously called
 			res.send(prices)
 		}
 	);
+})
+
+app.get('/', function (req, res) {
+
+	 res.render('Home', { 
+	 key: Publishable_Key 
+	 }) 
 })
 
 app.post('/payment', function (req, res) {
